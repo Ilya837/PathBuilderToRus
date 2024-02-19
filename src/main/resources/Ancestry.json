@@ -1,0 +1,44 @@
+{
+  "Elf": "Эльф",
+  "Cavern Elf": "Пещерный эльф",
+  "Arctic Elf": "Полярный эльф",
+  "Seer Elf": "Эльф-провидец",
+  "Whisper Elf": "Шепчущий эльф",
+  "Woodland Elf": "Лесной эльф",
+
+  "Dwarf": "Дварф",
+  "Ancient-Blooded": "Дварф древних кровей",
+  "Death Warden Dwarf": "Дварф - страж мёртвых",
+  "Forge Dwarf": "Дварф кузни",
+  "Rock Dwarf": "Скальный дварф",
+  "Strong-Blooded Dwarf": "Полнокровный дварф",
+
+  "Gnome": "Гном",
+  "Chameleon Gnome": "Гном-хамелеон",
+  "Fey-Touched Gnome": "Фееподобный гном",
+  "Sensate Gnome": "Гном-сектант",
+  "Umbral Gnome": "Теневой гном",
+  "Wellspring Gnome": "Гном истока",
+
+  "Goblin": "Гоблин",
+  "Charhide Goblin": "Палёный гоблин",
+  "Irongut Goblin": "Железнобрюхий гоблин",
+  "Razortooth Goblin": "Острозубый гоблин",
+  "Snow Goblin": "Снежный гоблин",
+  "Unbreakable Goblin": "Небьющийся гоблин",
+
+  "Halfling": "Полурослик",
+  "Gutsy Halfling": "Отважный полурослик",
+  "Hillock Halfling": "Холмовой полурослик",
+  "Nomadic Halfling": "Странствующий полурослик",
+  "Twillight Halfling": "Сумеречный полурослик",
+  "Wildwood Halfling": "Чащобный полурослик",
+
+  "Human": "Человек",
+  "Half-Elf": "Полуэльф",
+  "Half-Orc": "Полуорк",
+  "Skilled Heritage": "Умелый",
+  "Versatile Heritage": "Разносторонний"
+
+
+}
