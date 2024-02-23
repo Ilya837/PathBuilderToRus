@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    private static HashMap<String,String> ancestryDic;
+
 
     public static void listFields(PDDocument doc, PDDocument doc2,String newFileName) throws Exception {
         PDDocumentCatalog catalog = doc.getDocumentCatalog();
@@ -51,9 +51,14 @@ public class Main {
 
     }
 
-    private static String translateAncestry(String ancestry){
+    private static String translateAncestry(String ancestry) throws IOException {
 
 
+        HashMap<String,String> ancestryDic;
+
+        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource("Ancestry.json").getPath().substring(1)));
+
+        ancestryDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
 
         String[] a = ancestry.split(" \\(");
 
@@ -64,6 +69,28 @@ public class Main {
         return a[0] + " \u0028 " + a[1] + " )";
     }
 
+    private  static  String translateWeapon(String weapon) throws IOException {
+        HashMap<String,String> weaponDic;
+
+        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource("Weapon.json").getPath().substring(1)));
+
+        weaponDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
+
+        return weaponDic.get(weapon);
+    }
+    private  static  String translateWeaponTraits(String weaponTraits) throws IOException {
+        HashMap<String,String> weaponTraitsDic;
+
+        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource("WeaponTrait.json").getPath().substring(1)));
+
+        weaponTraitsDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
+
+        String[] traits = weaponTraits.split(", ");
+
+        for(int i = 0; i< traits.length;i++) traits[i] = weaponTraitsDic.get(traits[i]);
+
+        return String.join(", ", traits);
+    }
     public static void translate(PDDocument doc,String newCharacterPath) throws IOException {
 
         PDFont font = PDType0Font.load(doc, new FileInputStream(Main.class.getResource("arial.ttf").getPath()), false);
@@ -96,12 +123,44 @@ public class Main {
                 textField.setDefaultAppearance(da);
             }
 
-            switch (field.getFullyQualifiedName()){
-
-                case("Ancestry_Heritage"):{
-                    field.setValue( translateAncestry( field.getValueAsString() ) );
+            switch (field.getFullyQualifiedName()) {
+                case ("Ancestry_Heritage") -> {
+                    field.setValue(translateAncestry(field.getValueAsString()));
 
                     break;
+                }
+                case ("Class") -> {
+
+                    HashMap<String, String> classDic;
+
+                    Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource("Class.json").getPath().substring(1)));
+
+                    classDic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
+                    }.getType());
+
+
+                    field.setValue(classDic.get(field.getValueAsString()));
+                    break;
+                }
+                case ("Background") -> {
+                    HashMap<String, String> backDic;
+
+                    Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource("Backgrounds.json").getPath().substring(1)));
+
+                    backDic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
+                    }.getType());
+
+
+                    field.setValue(backDic.get(field.getValueAsString()));
+                    break;
+                }
+                case ("Melee1_Name"), ("Melee2_Name"), ("Melee3_Name"), ("Ranged1_Name"), ("Ranged2_Name"), ("Ranged3_Name") -> {
+                    field.setValue(translateWeapon(field.getValueAsString()));
+                    break;
+                }
+
+                case ("Melee1_Traits"), ("Melee2_Traits"), ("Melee3_Traits"), ("Ranged1_Traits"), ("Ranged2_Traits"), ("Ranged3_Traits") ->{
+                    field.setValue(translateWeaponTraits(field.getValueAsString()));
                 }
 
             }
@@ -114,9 +173,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource("Ancestry.json").getPath().substring(1)));
 
-        ancestryDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
 
         String newCharacterPath = Main.class.getResource("/").getPath() + "NewCharacter.pdf";
 
