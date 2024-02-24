@@ -69,6 +69,19 @@ public class Main {
         return a[0] + " \u0028 " + a[1] + " )";
     }
 
+    private  static  String translateList(String list, String jsonName) throws IOException {
+        HashMap<String,String> Dic;
+
+        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource(jsonName).getPath().substring(1)));
+
+        Dic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
+
+        String[] traits = list.split(", ");
+
+        for(int i = 0; i< traits.length;i++) traits[i] = Dic.get(traits[i]);
+
+        return String.join(", ", traits);
+    }
     private  static  String translateWeapon(String weapon) throws IOException {
         HashMap<String,String> weaponDic;
 
@@ -78,18 +91,16 @@ public class Main {
 
         return weaponDic.get(weapon);
     }
-    private  static  String translateWeaponTraits(String weaponTraits) throws IOException {
-        HashMap<String,String> weaponTraitsDic;
 
-        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource("WeaponTrait.json").getPath().substring(1)));
+    private static String translateWord(String word, String jsonName) throws IOException {
+        HashMap<String, String> Dic;
 
-        weaponTraitsDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
+        Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource(jsonName).getPath().substring(1)));
 
-        String[] traits = weaponTraits.split(", ");
+        Dic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
+        }.getType());
 
-        for(int i = 0; i< traits.length;i++) traits[i] = weaponTraitsDic.get(traits[i]);
-
-        return String.join(", ", traits);
+        return Dic.get(word);
     }
     public static void translate(PDDocument doc,String newCharacterPath) throws IOException {
 
@@ -126,41 +137,27 @@ public class Main {
             switch (field.getFullyQualifiedName()) {
                 case ("Ancestry_Heritage") -> {
                     field.setValue(translateAncestry(field.getValueAsString()));
-
-                    break;
                 }
                 case ("Class") -> {
-
-                    HashMap<String, String> classDic;
-
-                    Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource("Class.json").getPath().substring(1)));
-
-                    classDic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
-                    }.getType());
-
-
-                    field.setValue(classDic.get(field.getValueAsString()));
-                    break;
+                    field.setValue(translateWord(field.getValueAsString(),"Class.json"));
                 }
                 case ("Background") -> {
-                    HashMap<String, String> backDic;
-
-                    Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource("Backgrounds.json").getPath().substring(1)));
-
-                    backDic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
-                    }.getType());
-
-
-                    field.setValue(backDic.get(field.getValueAsString()));
-                    break;
+                    field.setValue(translateWord(field.getValueAsString(),"Backgrounds.json"));
                 }
                 case ("Melee1_Name"), ("Melee2_Name"), ("Melee3_Name"), ("Ranged1_Name"), ("Ranged2_Name"), ("Ranged3_Name") -> {
                     field.setValue(translateWeapon(field.getValueAsString()));
-                    break;
                 }
-
                 case ("Melee1_Traits"), ("Melee2_Traits"), ("Melee3_Traits"), ("Ranged1_Traits"), ("Ranged2_Traits"), ("Ranged3_Traits") ->{
-                    field.setValue(translateWeaponTraits(field.getValueAsString()));
+                    field.setValue(translateList(field.getValueAsString(), "WeaponTrait.json"));
+                }
+                case ("Languages") ->{
+                    field.setValue(translateList(field.getValueAsString(), "Languages.json"));
+                }
+                case("Senses") ->{
+                    field.setValue(translateWord(field.getValueAsString(), "Conditions.json"));
+                }
+                case("Alignment") ->{
+                    field.setValue(translateWord(field.getValueAsString(), "Alignments.json"));
                 }
 
             }
@@ -179,7 +176,7 @@ public class Main {
 
 
         //Файл, созданный PathBuilder
-        File file = new File(Main.class.getResource("document.pdf").getPath());
+        File file = new File(Main.class.getResource("document2.pdf").getPath());
 
         //Файл-шаблон
         File file2 = new File(Main.class.getResource("CharacterListRus.pdf").getPath());
