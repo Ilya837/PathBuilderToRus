@@ -138,6 +138,9 @@ public class Main {
                 case ("Ancestry_Heritage") -> {
                     field.setValue(translateAncestry(field.getValueAsString()));
                 }
+                case ("AncFeat_Heritage") -> {
+                    field.setValue(translateWord(field.getValueAsString(), "Ancestry.json"));
+                }
                 case ("Class") -> {
                     field.setValue(translateWord(field.getValueAsString(),"Class.json"));
                 }
@@ -159,6 +162,19 @@ public class Main {
                 case("Alignment") ->{
                     field.setValue(translateWord(field.getValueAsString(), "Alignments.json"));
                 }
+                case ("SkillFeat_Back"), ("SkillFeat_2nd"), ("SkillFeat_4th"), ("SkillFeat_6th"), ("SkillFeat_8th"),
+                        ("SkillFeat_10th"), ("SkillFeat_12th"),("SkillFeat_14th"), ("SkillFeat_16th"), ("SkillFeat_18th"),
+                        ("SkillFeat_20th"), ("GenFeat_3rd"), ("GenFeat_7rd"), ("GenFeat_11rd"), ("GenFeat_15rd"), ("GenFeat_19rd")->{
+
+                    field.setValue(translateWord(field.getValueAsString(), "SkillFeats.json"));
+                }
+                case ("Lore1_Name"),("Lore2_Name")->{
+                    field.setValue(translateWord(field.getValueAsString(), "Lores.json"));
+                }
+                case("AncFeat_Spec1st"), ("AncFeat_5th"), ("AncFeat_9th"), ("AncFeat_13th"),("AncFeat_1st")->{
+                    field.setValue(translateWord(field.getValueAsString(), "AncestryFeats.json"));
+                }
+
 
             }
 

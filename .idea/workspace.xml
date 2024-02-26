@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae32b60b-2560-4c5e-9b3e-808f3219ad70" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Ancestry.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Ancestry.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CharacterListRus.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CharacterListRus.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Conditions.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Conditions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Languages.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Languages.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,10 +55,20 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\pdfPathfinderSheet\src\main\resources" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\pdfPathfinderSheet\src\main\resources" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="pdfPathfinderSheet" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Parser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Parser" />
       <module name="pdfPathfinderSheet" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -62,6 +77,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Parser" />
       </list>
     </recent_temporary>
   </component>
@@ -88,7 +104,9 @@
       <workItem from="1708535297742" duration="598000" />
       <workItem from="1708693846692" duration="4581000" />
       <workItem from="1708711034166" duration="6103000" />
-      <workItem from="1708771576335" duration="3128000" />
+      <workItem from="1708771576335" duration="3225000" />
+      <workItem from="1708945295367" duration="2915000" />
+      <workItem from="1708961012801" duration="2057000" />
     </task>
     <servers />
   </component>
