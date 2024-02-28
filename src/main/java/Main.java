@@ -102,6 +102,26 @@ public class Main {
 
         return Dic.get(word);
     }
+
+    private static String translateBonusFeat(String word) throws IOException {
+        HashMap<String, String> Dic;
+
+        Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource("ClassFeats.json").getPath().substring(1)));
+
+
+        Dic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
+        }.getType());
+
+        reader = Files.newBufferedReader(Paths.get(Main.class.getResource("SkillFeats.json").getPath().substring(1)));
+
+        Dic.putAll( new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>(){}.getType()));
+
+        reader = Files.newBufferedReader(Paths.get(Main.class.getResource("AncestryFeats.json").getPath().substring(1)));
+
+        Dic.putAll( new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>(){}.getType()));
+
+        return Dic.get(word);
+    }
     public static void translate(PDDocument doc,String newCharacterPath) throws IOException {
 
         PDFont font = PDType0Font.load(doc, new FileInputStream(Main.class.getResource("arial.ttf").getPath()), false);
@@ -173,6 +193,16 @@ public class Main {
                 }
                 case("AncFeat_Spec1st"), ("AncFeat_5th"), ("AncFeat_9th"), ("AncFeat_13th"),("AncFeat_1st")->{
                     field.setValue(translateWord(field.getValueAsString(), "AncestryFeats.json"));
+                }
+                case("ClassFeat_1st"),("ClassFeat_2st"),("ClassFeat_4st"),("ClassFeat_6st"),("ClassFeat_8st"),("ClassFeat_10st"),("ClassFeat_12st"),
+                        ("ClassFeat_14st"),("ClassFeat_16st"),("ClassFeat_18st"),("ClassFeat_20st"),("ClassFeature1_1st"),("ClassFeature2_1st"),("ClassFeature_3rd"),
+                        ("ClassFeature_5rd"),("ClassFeature_7rd"),("ClassFeature_9rd"),("ClassFeature_11rd"),("ClassFeature_13rd"),("ClassFeature_15rd"),("ClassFeature_17rd"),
+                        ("ClassFeature_19rd")->{
+                    field.setValue(translateWord(field.getValueAsString(), "ClassFeats.json"));
+
+                }
+                case ("BonusFeat1"),("BonusFeat2")->{
+                    field.setValue(translateBonusFeat(field.getValueAsString()));
                 }
 
 
