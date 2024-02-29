@@ -7,6 +7,9 @@
     <list default="true" id="ae32b60b-2560-4c5e-9b3e-808f3219ad70" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CharacterListRus.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CharacterListRus.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/SkillFeats.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SkillFeats.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/document2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/document2.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +105,10 @@
       <workItem from="1708771576335" duration="3225000" />
       <workItem from="1708945295367" duration="2915000" />
       <workItem from="1708961012801" duration="2119000" />
-      <workItem from="1709116335542" duration="1668000" />
+      <workItem from="1709116335542" duration="2160000" />
+      <workItem from="1709122118931" duration="3692000" />
+      <workItem from="1709134804385" duration="256000" />
+      <workItem from="1709203654277" duration="1476000" />
     </task>
     <servers />
   </component>

@@ -69,6 +69,28 @@ public class Main {
         return a[0] + " \u0028 " + a[1] + " )";
     }
 
+    private static String translateSkillFeat(String feat) throws IOException {
+
+        HashMap<String,String> FeatsDic;
+
+        Reader reader = Files.newBufferedReader(Paths.get( Main.class.getResource("SkillFeats.json").getPath().substring(1)));
+
+        FeatsDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
+
+        if(feat.contains(" \u0028")){
+            String[] a = feat.split(" \\(");
+
+            a[0] = FeatsDic.get(a[0]);
+            a[1] = FeatsDic.get(a[1].substring(0,a[1].length()-1));
+
+
+            return a[0] + " \u0028 " + a[1] + " )";
+        }
+        else return FeatsDic.get(feat);
+
+
+    }
+
     private  static  String translateList(String list, String jsonName) throws IOException {
         HashMap<String,String> Dic;
 
@@ -89,7 +111,25 @@ public class Main {
 
         weaponDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
 
-        return weaponDic.get(weapon);
+        HashMap<String,String> runeDic;
+
+        reader = Files.newBufferedReader(Paths.get( Main.class.getResource("Runes.json").getPath().substring(1)));
+
+        runeDic = new Gson().fromJson(reader,new TypeToken<HashMap<String,String>>(){}.getType());
+
+        String[] a = weapon.split(" ");
+        int index = a.length-1;
+        a[index] = weaponDic.get(a[index]);
+
+        String res = "";
+        for(int i = 0; i<index;i++){
+            if(a[i].indexOf("+") != -1) res += a[i] + " ";
+            else res += runeDic.get(a[i]) + " ";
+        }
+
+        res += a[index];
+
+        return res;
     }
 
     private static String translateWord(String word, String jsonName) throws IOException {
@@ -99,6 +139,22 @@ public class Main {
 
         Dic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
         }.getType());
+
+        return Dic.get(word);
+    }
+
+    private static String translateLore(String word) throws IOException {
+        HashMap<String, String> Dic;
+
+        Reader reader = Files.newBufferedReader(Paths.get(Main.class.getResource("Lores.json").getPath().substring(1)));
+
+
+        Dic = new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>() {
+        }.getType());
+
+        reader = Files.newBufferedReader(Paths.get(Main.class.getResource("Gods.json").getPath().substring(1)));
+
+        Dic.putAll( new Gson().fromJson(reader, new TypeToken<HashMap<String, String>>(){}.getType()));
 
         return Dic.get(word);
     }
@@ -186,15 +242,15 @@ public class Main {
                         ("SkillFeat_10th"), ("SkillFeat_12th"),("SkillFeat_14th"), ("SkillFeat_16th"), ("SkillFeat_18th"),
                         ("SkillFeat_20th"), ("GenFeat_3rd"), ("GenFeat_7rd"), ("GenFeat_11rd"), ("GenFeat_15rd"), ("GenFeat_19rd")->{
 
-                    field.setValue(translateWord(field.getValueAsString(), "SkillFeats.json"));
+                    field.setValue(translateSkillFeat(field.getValueAsString()));
                 }
                 case ("Lore1_Name"),("Lore2_Name")->{
-                    field.setValue(translateWord(field.getValueAsString(), "Lores.json"));
+                    field.setValue(translateLore(field.getValueAsString()));
                 }
                 case("AncFeat_Spec1st"), ("AncFeat_5th"), ("AncFeat_9th"), ("AncFeat_13th"),("AncFeat_1st")->{
                     field.setValue(translateWord(field.getValueAsString(), "AncestryFeats.json"));
                 }
-                case("ClassFeat_1st"),("ClassFeat_2st"),("ClassFeat_4st"),("ClassFeat_6st"),("ClassFeat_8st"),("ClassFeat_10st"),("ClassFeat_12st"),
+                case("ClassFeat_1st"),("ClassFeat_2nd"),("ClassFeat_4st"),("ClassFeat_6st"),("ClassFeat_8st"),("ClassFeat_10st"),("ClassFeat_12st"),
                         ("ClassFeat_14st"),("ClassFeat_16st"),("ClassFeat_18st"),("ClassFeat_20st"),("ClassFeature1_1st"),("ClassFeature2_1st"),("ClassFeature_3rd"),
                         ("ClassFeature_5rd"),("ClassFeature_7rd"),("ClassFeature_9rd"),("ClassFeature_11rd"),("ClassFeature_13rd"),("ClassFeature_15rd"),("ClassFeature_17rd"),
                         ("ClassFeature_19rd")->{
@@ -203,6 +259,9 @@ public class Main {
                 }
                 case ("BonusFeat1"),("BonusFeat2")->{
                     field.setValue(translateBonusFeat(field.getValueAsString()));
+                }
+                case("Deity")->{
+                    field.setValue(translateWord(field.getValueAsString(),"Gods.json"));
                 }
 
 
